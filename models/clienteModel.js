@@ -35,6 +35,39 @@ class clienteModel{
         })
     }
 
+    atualizar(clienteAtualizado, id){
+        const sql = "update clientes set ? where id=?";
+        return new Promise ((resolve, reject ) => {
+            connection.query(sql, {clienteAtualizado, id}, (error, resposta) =>{
+                if(error){
+                    console.log("Erro ao atualizar cliente");
+                    console.log(error.message);
+                    reject(error);
+                }
+
+                console.log("cliente atualizado com sucesso");
+                resolve(resposta);
+
+            })
+        })
+    }
+
+    deletar(clienteAtualizado, id){
+        const sql = "delete from clientes where id=?";
+        return new Promise ((resolve, reject ) => {
+            connection.query(sql, {clienteAtualizado, id}, (error, resposta) =>{
+                if(error){
+                    console.log("Ocorreu um erro na remoção");
+                    reject(error);
+                }
+
+                console.log("Remoção realizada com sucesso");
+                resolve(resposta);
+
+            })
+        })
+    }
+
 
 }
 
