@@ -2,20 +2,19 @@ const clienteModel = require("../models/clienteModel");
 
 class clienteController{
     buscar(){
-        //return clienteModel.listar();
-        return "Consulta realizada com sucesso..."
+        return clienteModel.listar();
     }
 
-    criar(){
-        return "Criação realizada com sucesso..."
+    criar(novoCliente){
+        return clienteModel.criar(novoCliente);
     }
 
-    alterar(){
-        return "Alterado o cliente com codigo"+id+" com sucesso..."
+    alterar(clienteAtualizado, id){
+        return clienteModel.atualizar(clienteAtualizado, id);
     }
 
-    apagar(){
-        return "Deletado o cliente com codigo"+id+"..."
+    apagar(id){
+        return clienteModel.deletar(id);
     }
 
 }

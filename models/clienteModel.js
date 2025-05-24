@@ -1,74 +1,65 @@
 const connection = require("../connection/connection");
 
-class clienteModel{
-    listar(){
-        const sql = "select * from clientes";
-         return new Promise((resolve, reject) => {
-            connection.query(sql, {}, (error, resposta) =>{
-                if(error){
+class clienteModel {
+    listar() {
+        const sql = "SELECT * FROM clientes";
+        return new Promise((resolve, reject) => {
+            connection.query(sql, (error, resposta) => {
+                if (error) {
                     console.log("Ocorreu um erro na consulta");
-                    reject(error);
+                    return reject(error);
                 }
-                console.log("Consulta realizada com sucesso")
+                console.log("Consulta realizada com sucesso");
                 resolve(resposta);
-            })
-        })
+            });
+        });
     }
 
-
-    criar(novoCliente){
-        const sql = 'insert into clientes set ?';
+    criar(novoCliente) {
+        const sql = 'INSERT INTO clientes SET ?';
         console.log("Dados do cliente a serem inseridos:", novoCliente);
-        return new Promise ((resolve, reject) =>{
-
-            connection.query(sql, novocliente,(error, resposta) => {
-                if(error){
+        return new Promise((resolve, reject) => {
+            connection.query(sql, novoCliente, (error, resposta) => {
+                if (error) {
                     console.log("Erro ao inserir cliente");
-                    console.log(error,message);
-                    reject(error);
+                    console.log(error.message);
+                    return reject(error);
                 }
-                console.log("cliente inserido com sucesso");
-                resolve(resposta);
-            })
-
-
-        })
+                console.log("Cliente inserido com sucesso");
+                resolve({ id: resposta.insertId, ...novoCliente });
+            });
+        });
     }
 
-    atualizar(clienteAtualizado, id){
-        const sql = "update clientes set ? where id=?";
-        return new Promise ((resolve, reject ) => {
-            connection.query(sql, {clienteAtualizado, id}, (error, resposta) =>{
-                if(error){
+    atualizar(clienteAtualizado, id) {
+        const sql = "UPDATE clientes SET ? WHERE id = ?";
+        return new Promise((resolve, reject) => {
+            connection.query(sql, [clienteAtualizado, id], (error, resposta) => {
+                if (error) {
                     console.log("Erro ao atualizar cliente");
                     console.log(error.message);
-                    reject(error);
+                    return reject(error);
                 }
-
-                console.log("cliente atualizado com sucesso");
+                console.log("Cliente atualizado com sucesso");
                 resolve(resposta);
-
-            })
-        })
+            });
+        });
     }
 
-    deletar(clienteAtualizado, id){
-        const sql = "delete from clientes where id=?";
-        return new Promise ((resolve, reject ) => {
-            connection.query(sql, {clienteAtualizado, id}, (error, resposta) =>{
-                if(error){
+    deletar(id) {
+        const sql = "DELETE FROM clientes WHERE id = ?";
+        return new Promise((resolve, reject) => {
+            connection.query(sql, [id], (error, resposta) => {
+                if (error) {
                     console.log("Ocorreu um erro na remoção");
-                    reject(error);
+                    return reject(error);
                 }
-
                 console.log("Remoção realizada com sucesso");
                 resolve(resposta);
-
-            })
-        })
+            });
+        });
     }
-
-
 }
 
 module.exports = new clienteModel();
+

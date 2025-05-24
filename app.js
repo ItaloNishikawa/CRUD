@@ -6,6 +6,8 @@ const router = require("./routes/moduleRoute.js");
 const conexao = require("./connection/connection.js");
 const table = require("./connection/table.js");
 
+app.use(express.json()); 
+
 table.init(conexao);
 
 router(app);

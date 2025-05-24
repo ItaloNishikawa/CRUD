@@ -2,6 +2,7 @@ class Tables{
     init(connect){
         this.connect = connect;
         this.createTableCliente();
+        this.createTableProduto();
     }
 
     createTableCliente(){
@@ -24,10 +25,35 @@ class Tables{
                 return;
             }
 
-            console.log("Tabela criada sucesso");
+            console.log("Tabela Cliente criada com sucesso / minha nossa Cr7 de bicicleta");
         });
 
     }
+
+    createTableProduto(){
+        const sql = 
+        ` 
+            CREATE TABLE IF NOT exists produtos (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(100) NOT NULL,
+            descricao TEXT,
+            preco DECIMAL(10, 2) NOT NULL,
+            quantidade INT DEFAULT 0
+            );
+        `;
+
+        this.connect.query(sql,(error) => {
+            if (error){
+                console.log("Erro ao criar tabela Produtos");
+                console.log(error.message);
+                return;
+            }
+
+            console.log("Tabela Produtos criada sucesso / Block By James");
+        });
+
+    }
+
 }
 
 module.exports = new Tables();
