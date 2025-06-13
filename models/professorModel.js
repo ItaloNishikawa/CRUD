@@ -1,8 +1,8 @@
 const connection = require("../connection/connection");
 
-class clienteModel {
+class professorModel {
     listar() {
-        const sql = "SELECT * FROM clientes";
+        const sql = "SELECT * FROM professor";
         return new Promise((resolve, reject) => {
             connection.query(sql, (error, resposta) => {
                 if (error) {
@@ -15,39 +15,39 @@ class clienteModel {
         });
     }
 
-    criar(novoCliente) {
-        const sql = 'INSERT INTO clientes SET ?';
-        console.log("Dados do cliente a serem inseridos:", novoCliente);
+    criar(novoProfessor) {
+        const sql = 'INSERT INTO professor SET ?';
+        console.log("Dados do professor a serem inseridos:", novoProfessor);
         return new Promise((resolve, reject) => {
-            connection.query(sql, novoCliente, (error, resposta) => {
+            connection.query(sql, novoProfessor, (error, resposta) => {
                 if (error) {
-                    console.log("Erro ao inserir cliente");
+                    console.log("Erro ao inserir professor");
                     console.log(error.message);
                     return reject(error);
                 }
-                console.log("Cliente inserido com sucesso");
-                resolve({ id: resposta.insertId, ...novoCliente });
+                console.log("Professor inserido com sucesso");
+                resolve({ id: resposta.insertId, ...novoProfessor});
             });
         });
     }
 
-    atualizar(clienteAtualizado, id) {
+    atualizar(professorAtualizado, id) {
         const sql = "UPDATE clientes SET ? WHERE id = ?";
         return new Promise((resolve, reject) => {
-            connection.query(sql, [clienteAtualizado, id], (error, resposta) => {
+            connection.query(sql, [professorAtualizado, id], (error, resposta) => {
                 if (error) {
-                    console.log("Erro ao atualizar cliente");
+                    console.log("Erro ao atualizar professor");
                     console.log(error.message);
                     return reject(error);
                 }
-                console.log("Cliente atualizado com sucesso");
+                console.log("Professor atualizado com sucesso");
                 resolve(resposta);
             });
         });
     }
 
     deletar(id) {
-        const sql = "DELETE FROM clientes WHERE id = ?";
+        const sql = "DELETE FROM professor WHERE id = ?";
         return new Promise((resolve, reject) => {
             connection.query(sql, [id], (error, resposta) => {
                 if (error) {
@@ -61,5 +61,5 @@ class clienteModel {
     }
 }
 
-module.exports = new clienteModel();
+module.exports = new professorModel();
 

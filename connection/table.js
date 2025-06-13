@@ -1,20 +1,19 @@
 class Tables{
     init(connect){
         this.connect = connect;
-        this.createTableCliente();
-        this.createTableProduto();
+        this.createTableProfessor();
+        this.createTableAluno();
+        this.createTableDisciplina()
     }
 
-    createTableCliente(){
+    createTableProfessor(){
         const sql = 
         ` 
-            CREATE TABLE IF NOT exists clientes (
-            id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-            nome VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL,
-            telefone VARCHAR(15) NOT NULL UNIQUE,
-            data_de_nascimento DATE,
-            data_cadastro DATE
+            CREATE TABLE IF NOT EXISTS professor (
+                prof_numero INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+                prof_nome VARCHAR(100) NOT NULL,
+                prof_rua VARCHAR(100),
+                prof_cidade VARCHAR(50)
             );
         `;
 
@@ -25,21 +24,21 @@ class Tables{
                 return;
             }
 
-            console.log("Tabela Cliente criada com sucesso / minha nossa Cr7 de bicicleta");
+            console.log("Tabela Professor criada com sucesso / minha nossa Cr7 de bicicleta");
         });
 
     }
 
-    createTableProduto(){
+    createTableAluno(){
         const sql = 
         ` 
-            CREATE TABLE IF NOT exists produtos (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
-            descricao TEXT,
-            preco DECIMAL(10, 2) NOT NULL,
-            quantidade INT DEFAULT 0
-            );
+        CREATE TABLE IF NOT EXISTS aluno (
+            aluno_numero INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+            aluno_nome VARCHAR(100) NOT NULL,
+            aluno_rua VARCHAR(100),
+            aluno_cidade VARCHAR(50)
+        );
+
         `;
 
         this.connect.query(sql,(error) => {
@@ -49,7 +48,31 @@ class Tables{
                 return;
             }
 
-            console.log("Tabela Produtos criada sucesso / Block By James");
+            console.log("Tabela Alunos criada sucesso / Block By James");
+        });
+
+    }
+
+    createTableDisciplina(){
+        const sql = 
+        ` 
+        CREATE TABLE IF NOT EXISTS disciplina (
+            disc_codigo INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+            disc_nome VARCHAR(100) NOT NULL,
+            curso_nome VARCHAR(100) NOT NULL,
+            qtd_aulas INT NOT NULL CHECK (qtd_aulas > 0)
+        );
+
+        `;
+
+        this.connect.query(sql,(error) => {
+            if (error){
+                console.log("Erro ao criar tabela Produtos");
+                console.log(error.message);
+                return;
+            }
+
+            console.log("Tabela Alunos criada sucesso / Block By A.D.");
         });
 
     }
