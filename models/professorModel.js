@@ -32,7 +32,7 @@ class professorModel {
     }
 
     atualizar(professorAtualizado, id) {
-        const sql = "UPDATE clientes SET ? WHERE id = ?";
+        const sql = "UPDATE professor SET ? WHERE prof_numero = ?";
         return new Promise((resolve, reject) => {
             connection.query(sql, [professorAtualizado, id], (error, resposta) => {
                 if (error) {
@@ -47,7 +47,7 @@ class professorModel {
     }
 
     deletar(id) {
-        const sql = "DELETE FROM professor WHERE id = ?";
+        const sql = "DELETE FROM professor WHERE prof_numero = ?";
         return new Promise((resolve, reject) => {
             connection.query(sql, [id], (error, resposta) => {
                 if (error) {
